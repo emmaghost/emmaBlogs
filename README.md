@@ -24,6 +24,13 @@ Se ocupo un middleware para la validacion de algunas rutas mediante el front par
 strings dentro de la ruta y evitar que el sistema pueda buscarlos.
 Se controla asi que cuando se edite el articulo este activo y te muestre los que existe asi evitar que los usuarios puedan navegar con ids que ellos inventen
 
+
+## likes
+
+Por el momento el usuario puede darle likes a los articulos que el prefiera o darle no me gusta, el sistema esta preparado para validar si el usuario ya le dio like
+solo se tendria que hacer una regla de negocio incluyendo el id del usuario que la base ya lo pide.
+Pero ya se simula el darle like y no me gusta a cada uno de los articulos, sigue en proceso de construcción.
+
 ## No contiene seguidad todavia en los apis ya mas adelante se puede validar pornerle seguridad 
 
 
