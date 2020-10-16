@@ -9,7 +9,7 @@ Para consultar los articulos que se tienen en la base de datos existe mediante l
 - http://127.0.0.1:8000/api/articulos/Todos -- Traera todos los registros que esten activos para poderlos consultar mediante formato json
 - http://127.0.0.1:8000/api/articulos/{id} -- Enviandole un parametro del id nos traera los datos de ese id requerido
 
-## Mediante post podemos consultar para enviar datos para el guardado en la bd 
+Mediante post podemos consultar para enviar datos para el guardado en la bd 
 
 -- http://127.0.0.1:8000/api/articulos/ -- Lo mandamos por POST y le tenemos que enviar en el cuerpo del mismo los siguintes parametros:
     ** id_propietario -- El id que esta solicitando la creacion)
