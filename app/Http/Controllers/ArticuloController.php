@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Articulo;
 use App\Models\Comentario;
+use App\Models\likes;
 use DB;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
@@ -184,7 +185,14 @@ class ArticuloController extends Controller
         $fechaUltimoUpdate = Carbon::parse($datoArticulo->updated_at);
         $fechaHoy = Carbon::now();
         $diasDiferencia = $fechaUltimoUpdate->diffInDays($fechaHoy);
-        return view('blog/mostrarArticulo',compact('datoArticulo','comentarios','ruta','diasDiferencia'));
+        $megusta =  likes::where('id_articulo',$id)->count();
+        if ($megusta == 0) { $megusta = 0; $noMegusta = 0;}
+        else{
+            $megusta =   likes::where('id_articulo',$id)->where('like',true)->count();
+            $noMegusta =   likes::where('id_articulo',$id)->where('like',false)->count();
+        }
+       
+        return view('blog/mostrarArticulo',compact('datoArticulo','comentarios','ruta','diasDiferencia','megusta','noMegusta'));
      
     }
     public function editarArticulo(Request $request)
@@ -200,14 +208,52 @@ class ArticuloController extends Controller
         return view('blog/editarArticulo',compact('datoArticulo','comentarios','ruta','diasDiferencia'));
      
     }
+    public function darLike(Request $request)
+    {
+        try{
+        $id = $request->route('id');
+        \Log::info(__METHOD__.' Darle Like al articulo '.$id);   
+        $like = new likes;
+        $like->id_articulo = $id;
+        $like->id_user_like = 1;
+        $like->like = true;
+        $like->save();
+        
+        return response()->json(['status'=>true, 'message' => 'Se dio like correctamente.', 'code' => 'AC0221'],200);    
+    }catch(\Exception $th)
+    {
+        \Log::warning(__METHOD__."--->Line:".$th->getLine()."----->".$th->getMessage());
+        return response()->json(['status'=>false, 'message' =>'Error al dar like, intente en unos momentos mas', 'code' => 'AC0723'],200);
+    } 
+    }
+
+    public function darDisLike(Request $request)
+    {
+        try{
+        $id = $request->route('id');
+        \Log::info(__METHOD__.' Darle disLike al articulo '.$id);   
+        $like = new likes;
+        $like->id_articulo = $id;
+        $like->id_user_like = 1;
+        $like->like = false;
+        $like->save();
+        
+        return response()->json(['status'=>true, 'message' => 'Se dio dislike correctamente.', 'code' => 'AC0241'],200);    
+    }catch(\Exception $th)
+    {
+        \Log::warning(__METHOD__."--->Line:".$th->getLine()."----->".$th->getMessage());
+        return response()->json(['status'=>false, 'message' =>'Error al dar dislike, intente en unos momentos mas', 'code' => 'AC0245'],200);
+    } 
+    }
     public function borrarArticulo(Request $request)
     {
+        
         try{
         
         $id = $request->route('id');
         \Log::info("Deshabilita el Articulo numero " .$id);  
         $articulo_inactivo = Articulo::where('id', $id)->update(['estatus' => false]);        
-        return response()->json(['status'=>true, 'message' => 'Se actualizo correctamente el nuevo Mensaje.', 'code' => 'AC0719'],200);    
+        return response()->json(['status'=>true, 'message' => 'Se actualizo correctamente el nuevo Mensaje.', 'code' => 'AC0252'],200);    
 
         }catch(\Exception $th)
         {

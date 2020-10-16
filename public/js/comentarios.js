@@ -79,3 +79,70 @@ function save_comentario() {
         }
     });
 }
+
+
+function darLike(id) {
+       
+    swal({
+        title: "Seguro que darle like?",
+        text: "Muchos likes... muy buen post!!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {                
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url : url + "articulo/darLike/"+id,
+                dataType: 'html',
+                success: function(resp_success) {
+                    swal('Borrado!','Like Generado','success');
+                    location.reload();
+                },
+                error: function(respuesta) {
+                    swal('Aleta!','Ocurrio un error, vuelva a intentar mas tarde','warning');
+                }
+            });
+        } else {
+          swal("No se dio su like");
+        }
+      });
+    
+    
+}
+
+function darDisLike(id) {
+       
+    swal({
+        title: "Seguro que darle no me gusta?",
+        text: "oh no ... tiene no me gusta :( !!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {                
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url : url + "articulo/darDisLike/"+id,
+                dataType: 'html',
+                success: function(resp_success) {
+                    swal('Borrado!','Like Generado','success');
+                    location.reload();
+                },
+                error: function(respuesta) {
+                    swal('Aleta!','Ocurrio un error, vuelva a intentar mas tarde','warning');
+                }
+            });
+        } else {
+          swal("No se dio su like");
+        }
+      });
+    
+    
+}

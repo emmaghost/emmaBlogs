@@ -16,8 +16,8 @@
             </div>
             <div class="card-footer">
                        
-                            <a href="" class="btn btn-primary btn-sm">({{ 1 }}) Me gusta</a>                                                                       
-                            <a href="" class="btn btn-secondary btn-sm">({{ 3 }}) No me gusta</a>
+                            <a onclick="darLike('{{$datoArticulo->id}}');" class="btn btn-primary btn-sm">({{ $megusta ?? '' }}) Me gusta</a>                                                                       
+                            <a onclick="darDisLike('{{$datoArticulo->id}}');" class="btn btn-secondary btn-sm">({{ $noMegusta ?? '' }}) No me gusta</a>
                        
                           
                        
