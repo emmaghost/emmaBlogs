@@ -10,19 +10,16 @@
                     <h2 class="card-title">{{ $datoArticulo->titulo }} </h2>
                     <p class="card-text">{{$datoArticulo->articulo}}</p>
                     <p class="card-text">
-                        <small class="text-muted">Last updated 3 mins ago</small>
+                    <small class="text-muted">Ultima actualización : {{$diasDiferencia}} días</small>
                     </p>
                 </div>
             </div>
             <div class="card-footer">
                        
-                            <a href="" class="btn btn-primary btn-sm">({{ 1 }}) Me gusta</a>
-                       
-                            <a href="" class="btn btn-primary btn-sm">({{ 2 }}) Te gusta</a>
-                       
+                            <a href="" class="btn btn-primary btn-sm">({{ 1 }}) Me gusta</a>                                                                       
                             <a href="" class="btn btn-secondary btn-sm">({{ 3 }}) No me gusta</a>
                        
-                            <a href="" class="btn btn-secondary btn-sm">({{4 }}) Te disgusta</a>
+                          
                        
                     </div>
                     <div class="container-fluid">

@@ -10,7 +10,7 @@
                     <h2 class="card-title">{{ $datoArticulo->titulo }} </h2>
                     <p class="card-text">{{$datoArticulo->articulo}}</p>
                     <p class="card-text">
-                        <small class="text-muted">Last updated 3 mins ago</small>
+                        <small class="text-muted">Ultima actualización : {{$diasDiferencia}} días</small>
                     </p>
                 </div>
             </div>

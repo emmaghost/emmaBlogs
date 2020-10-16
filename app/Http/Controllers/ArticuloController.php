@@ -7,6 +7,7 @@ use App\Models\Articulo;
 use App\Models\Comentario;
 use DB;
 use Yajra\Datatables\Datatables;
+use Carbon\Carbon;
 
 class ArticuloController extends Controller
 {
@@ -180,7 +181,10 @@ class ArticuloController extends Controller
         $datoArticulo = Articulo::where('id',$id)->first();
         $comentarios = Comentario::where('id_articulo',$id);
         $ruta = "public/storage/".$datoArticulo->foto;
-        return view('blog/mostrarArticulo',compact('datoArticulo','comentarios','ruta'));
+        $fechaUltimoUpdate = Carbon::parse($datoArticulo->updated_at);
+        $fechaHoy = Carbon::now();
+        $diasDiferencia = $fechaUltimoUpdate->diffInDays($fechaHoy);
+        return view('blog/mostrarArticulo',compact('datoArticulo','comentarios','ruta','diasDiferencia'));
      
     }
     public function editarArticulo(Request $request)
@@ -189,7 +193,27 @@ class ArticuloController extends Controller
         $datoArticulo = Articulo::where('id',$id)->first();
         $comentarios = Comentario::where('id_articulo',$id);
         $ruta = "public/storage/".$datoArticulo->foto;
-        return view('blog/editarArticulo',compact('datoArticulo','comentarios','ruta'));
+        $fechaUltimoUpdate = Carbon::parse($datoArticulo->updated_at);
+        $fechaHoy = Carbon::now();
+        $diasDiferencia = $fechaUltimoUpdate->diffInDays($fechaHoy);
+        
+        return view('blog/editarArticulo',compact('datoArticulo','comentarios','ruta','diasDiferencia'));
+     
+    }
+    public function borrarArticulo(Request $request)
+    {
+        try{
+        
+        $id = $request->route('id');
+        \Log::info("Deshabilita el Articulo numero " .$id);  
+        $articulo_inactivo = Articulo::where('id', $id)->update(['estatus' => false]);        
+        return response()->json(['status'=>true, 'message' => 'Se actualizo correctamente el nuevo Mensaje.', 'code' => 'AC0719'],200);    
+
+        }catch(\Exception $th)
+        {
+            \Log::warning(__METHOD__."--->Line:".$th->getLine()."----->".$th->getMessage());
+            return response()->json(['status'=>false, 'message' =>'Error al actualizar los mensajes y generar el nuevo, intente en unos momentos mas', 'code' => 'AC0723'],200);
+        }    
      
     }
     public function modal_genera_comentario(Request $request)

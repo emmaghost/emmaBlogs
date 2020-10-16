@@ -28,6 +28,7 @@ Route::get('/data_listar_comentarios/{id_articulo}', 'ArticuloController@data_li
 Route::get('/modal_genera_comentario/{id_articulo}', 'ArticuloController@modal_genera_comentario');
 Route::get('/verArticulo/{id}', 'ArticuloController@verArticulo')->middleware('existeArti::id');
 Route::get('/editarArticulo/{id}', 'ArticuloController@editarArticulo')->middleware('existeArti::id');
+Route::get('/borrarArticulo/{id}', 'ArticuloController@borrarArticulo')->middleware('existeArti::id');
 Route::get('/modal_edita_articulo/{id}', 'ArticuloController@modal_edita_articulo')->middleware('existeArti::id');
 Route::post('/saveNewArt', 'ArticuloController@saveNewArt');
 Route::post('/save_edita_articulo', 'ArticuloController@save_edita_articulo');
