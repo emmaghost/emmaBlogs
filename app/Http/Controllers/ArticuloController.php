@@ -69,8 +69,13 @@ class ArticuloController extends Controller
      */
     public function show($id)
     {
-         //traemos los datos con el id solicitado por GET.
-         return Articulo::where('id', $id)->get();
+        if($id == "Todos"){
+            return Articulo::where('estatus', true)->get();   
+        }
+        else{
+            //traemos los datos con el id solicitado por GET.
+            return Articulo::where('id', $id)->get();
+        }
        
     }
 
@@ -83,6 +88,11 @@ class ArticuloController extends Controller
     public function edit($id)
     {
         //
+    }
+
+    public function muestraTodos(Request $request, $id)
+    {
+        return Articulo::where('estatus', $true)->get();
     }
 
     /**

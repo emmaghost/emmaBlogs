@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //agregamos la ruta para consultar nuestro controlador de articulosController
 Route::resource('articulos', 'ArticuloController');
+
+
+
